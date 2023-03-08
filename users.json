@@ -1,1 +1,58 @@
-[{"id":2,"gender":"FeMale","name":"Tester 02","contact":22222,"address":"Khulna","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=female"},{"id":3,"gender":"Male","name":"Tester 03","contact":333333313,"address":"Chittagong","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=male"},{"id":4,"gender":"FeMale","name":"Tester 13","contact":35678764,"address":"Rajshahi","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=female"},{"id":5,"gender":"Male","name":"Tester 05","contact":4457686,"address":"Pabna","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=male"},{"id":6,"gender":"FeMale","name":"Tester 06","contact":9439854,"address":"Dhaka","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=female"},{"id":7,"gender":"Male","name":"Tester 07","contact":5345,"address":"Dhaka","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=male"},{"id":1,"gender":"Male","name":"Tester 07","contact":5345,"address":"Dhaka","photoUrl":"https://xsgames.co/randomusers/avatar.php?g=male"}]
+[
+  {
+    "id": 2,
+    "gender": "FeMale",
+    "name": "Tester 02",
+    "contact": 22222,
+    "address": "Khulna",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=female"
+  },
+  {
+    "id": 3,
+    "gender": "Male",
+    "name": "Tester 03",
+    "contact": 333333313,
+    "address": "Chittagong",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=male"
+  },
+  {
+    "id": 4,
+    "gender": "FeMale",
+    "name": "Tester 13",
+    "contact": 35678764,
+    "address": "Rajshahi",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=female"
+  },
+  {
+    "id": 5,
+    "gender": "Male",
+    "name": "Tester 05",
+    "contact": 4457686,
+    "address": "Pabna",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=male"
+  },
+  {
+    "id": 6,
+    "gender": "FeMale",
+    "name": "Tester 06",
+    "contact": 9439854,
+    "address": "Dhaka",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=female"
+  },
+  {
+    "id": 7,
+    "gender": "Male",
+    "name": "Tester 07",
+    "contact": 5345,
+    "address": "Dhaka",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=male"
+  },
+  {
+    "id": 1,
+    "gender": "Male",
+    "name": "Tester 07",
+    "contact": 224,
+    "address": "Dhaka",
+    "photoUrl": "https://xsgames.co/randomusers/avatar.php?g=male"
+  }
+]

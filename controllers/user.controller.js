@@ -1,27 +1,34 @@
 const fs = require("fs");
+const path = require('path');
 module.exports.getRandomUser = (req, res) => {
-  let data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
   const randomIndex = Math.floor(Math.random() * data.length);
   res.json(data[randomIndex]);
 };
 
 module.exports.getAllUser = (req, res) => {
   const { limit } = req.query;
-  const data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
   limit ? res.json(data.slice(0, limit)) : res.json(data);
 };
 
 module.exports.postUserData = (req, res) => {
   //   console.log("-->",req.body);
-  const data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
   const { id, gender, name, contact, address, photoUrl } = req.body;
   if (typeof (id) !== "number" ) {
     res.send("id & contact should be a number");
+    res.end();
   }
-  if(contact !== undefined && typeof (contact) !== "number"){
+  else if(contact !== undefined && typeof (contact) !== "number"){
     res.send("contact should be a number");
+    res.end();
+
   }
-  if (id && gender && name && contact && address && photoUrl) {
+  else if (id && gender && name && contact && address && photoUrl) {
     data.push({
       id: id,
       gender: gender,
@@ -30,7 +37,7 @@ module.exports.postUserData = (req, res) => {
       address: address,
       photoUrl: photoUrl,
     });
-    fs.writeFileSync("./users.json", JSON.stringify(data));
+    fs.writeFileSync(filePath, JSON.stringify(data));
     res.send("saved User Successfully");
   } else {
     res.send("Please provide all the data");
@@ -39,24 +46,30 @@ module.exports.postUserData = (req, res) => {
 
 module.exports.updateUserData = (req, res) => {
   //   console.log("-->",req.body);
-  const data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
   const { id, gender, name, contact, address, photoUrl } = req.body;
   if (typeof (id) !== "number" ) {
     res.send("id  should be a number");
-  }
-  const filteredData = data.filter((user) => user.id !== id);
+  }else if(contact !== undefined && typeof (contact) !== "number"){
+    res.send("contact should be a number");
+}else{
+const filteredData = data.filter((user) => user.id !== id);
   let singleData = data.find((user) => user.id == Number(id));
   if (singleData) {
     singleData={...singleData,...req.body}
     filteredData.push(singleData);
-    fs.writeFileSync("./users.json", JSON.stringify(filteredData));
+    fs.writeFileSync(filePath, JSON.stringify(filteredData));
     res.send("updated User Successfully");
   } else {
     res.send("Please provide all the data");
   }
+}
+  
 };
 module.exports.updateBulkUserData = (req, res) => {
-    const data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
     req.body.forEach((element) => {
         if (typeof (element.id) !== "number") {
             res.send("id should be a number");
@@ -73,7 +86,7 @@ module.exports.updateBulkUserData = (req, res) => {
           return element;
         });
       
-          fs.writeFileSync("./users.json", JSON.stringify(newArray));
+          fs.writeFileSync(filePath, JSON.stringify(newArray));
       res.send("Bulk User update Successful");
     }catch(err){
         console.log(err)
@@ -82,12 +95,15 @@ module.exports.updateBulkUserData = (req, res) => {
   
 };
 module.exports.removeUser=(req,res)=>{
-    const data = JSON.parse(fs.readFileSync("./users.json"));
+  const filePath = path.join(process.cwd(), 'users.json');
+  let data = JSON.parse(fs.readFileSync(filePath));
     const { id } = req.body;
     if (typeof (id) !== "number") {
       res.send("id should be a number");
+    }else{
+      const filteredData = data.filter((user) => user.id !== id);
+      fs.writeFileSync(filePath, JSON.stringify(filteredData));
+      res.send("User Deleted Successfully");
     }
-    const filteredData = data.filter((user) => user.id !== id);
-    fs.writeFileSync("./users.json", JSON.stringify(filteredData));
-    res.send("User Deleted Successfully");
+    
 }
