@@ -1,19 +1,23 @@
 const fs = require("fs");
+import path from 'path';
 module.exports.getRandomUser = (req, res) => {
-  let data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
   const randomIndex = Math.floor(Math.random() * data.length);
   res.json(data[randomIndex]);
 };
 
 module.exports.getAllUser = (req, res) => {
   const { limit } = req.query;
-  const data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
   limit ? res.json(data.slice(0, limit)) : res.json(data);
 };
 
 module.exports.postUserData = (req, res) => {
   //   console.log("-->",req.body);
-  const data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
   const { id, gender, name, contact, address, photoUrl } = req.body;
   if (typeof (id) !== "number" ) {
     res.send("id & contact should be a number");
@@ -30,7 +34,7 @@ module.exports.postUserData = (req, res) => {
       address: address,
       photoUrl: photoUrl,
     });
-    fs.writeFileSync("users.json", JSON.stringify(data));
+    fs.writeFileSync(file, JSON.stringify(data));
     res.send("saved User Successfully");
   } else {
     res.send("Please provide all the data");
@@ -39,7 +43,8 @@ module.exports.postUserData = (req, res) => {
 
 module.exports.updateUserData = (req, res) => {
   //   console.log("-->",req.body);
-  const data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
   const { id, gender, name, contact, address, photoUrl } = req.body;
   if (typeof (id) !== "number" ) {
     res.send("id  should be a number");
@@ -49,14 +54,15 @@ module.exports.updateUserData = (req, res) => {
   if (singleData) {
     singleData={...singleData,...req.body}
     filteredData.push(singleData);
-    fs.writeFileSync("users.json", JSON.stringify(filteredData));
+    fs.writeFileSync(file, JSON.stringify(filteredData));
     res.send("updated User Successfully");
   } else {
     res.send("Please provide all the data");
   }
 };
 module.exports.updateBulkUserData = (req, res) => {
-    const data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
     req.body.forEach((element) => {
         if (typeof (element.id) !== "number") {
             res.send("id should be a number");
@@ -73,7 +79,7 @@ module.exports.updateBulkUserData = (req, res) => {
           return element;
         });
       
-          fs.writeFileSync("users.json", JSON.stringify(newArray));
+          fs.writeFileSync(file, JSON.stringify(newArray));
       res.send("Bulk User update Successful");
     }catch(err){
         console.log(err)
@@ -82,12 +88,13 @@ module.exports.updateBulkUserData = (req, res) => {
   
 };
 module.exports.removeUser=(req,res)=>{
-    const data = JSON.parse(fs.readFileSync("users.json"));
+  const file = path.join(process.cwd(), 'files', 'users.json');
+  let data = JSON.parse(fs.readFileSync(file));
     const { id } = req.body;
     if (typeof (id) !== "number") {
       res.send("id should be a number");
     }
     const filteredData = data.filter((user) => user.id !== id);
-    fs.writeFileSync("users.json", JSON.stringify(filteredData));
+    fs.writeFileSync(file, JSON.stringify(filteredData));
     res.send("User Deleted Successfully");
 }
